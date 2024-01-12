@@ -34,19 +34,19 @@ public class AddItemToList {
   }
 
   @Test
-	public void shouldAddItemToListWithExistingItems() {
-		String[] existingTasks = { "Task 1", "Task 2", "Task 3" };
-		String newTask = "Task 4";
-		WebDriver wd = new ChromeDriver();
+  public void shouldAddItemToListWithExistingItems() {
+    String[] existingTasks = { "Task 1", "Task 2", "Task 3" };
+    String newTask = "Task 4";
+    WebDriver wd = new ChromeDriver();
     wd.manage().timeouts().pageLoadTimeout(5, TimeUnit.SECONDS);
     wd.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     wd.get("https://todomvc.com/examples/angularjs/#/");
-		Arrays.asList(existingTasks).stream()
-				.forEach(task -> wd.findElement(By.cssSelector("input.new-todo")).sendKeys(task, Keys.ENTER));
-        wd.findElement(By.cssSelector("input.new-todo")).sendKeys(newTask, Keys.ENTER);
+    Arrays.asList(existingTasks).stream()
+        .forEach(task -> wd.findElement(By.cssSelector("input.new-todo")).sendKeys(task, Keys.ENTER));
+    wd.findElement(By.cssSelector("input.new-todo")).sendKeys(newTask, Keys.ENTER);
     assertEquals(4, wd.findElements(By.cssSelector("section.main .todo-list label")).size());
-    assertTrue(wd.findElements(By.cssSelector("section.main .todo-list label")).stream().anyMatch(we -> we.getText().equals(newTask)));
+    assertTrue(wd.findElements(By.cssSelector("section.main .todo-list label")).stream()
+        .anyMatch(we -> we.getText().equals(newTask)));
     wd.quit();
-	}
+  }
 }
-
