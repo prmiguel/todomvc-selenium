@@ -24,12 +24,12 @@ public class AddItemToList {
     WebDriver wd = new ChromeDriver();
     wd.manage().timeouts().pageLoadTimeout(5, TimeUnit.SECONDS);
     wd.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-    wd.get("https://todomvc.com/examples/angularjs/#/");
+    wd.get("https://todomvc.com/examples/angular/dist/browser/#/all");
     wd.findElement(By.cssSelector("input.new-todo")).sendKeys(task, Keys.ENTER);
     Wait<WebDriver> wait = new WebDriverWait(wd, Duration.ofSeconds(5).getSeconds());
-    wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("section.main .todo-list label")));
-    assertEquals(1, wd.findElements(By.cssSelector("section.main .todo-list label")).size());
-    assertEquals(task, wd.findElements(By.cssSelector("section.main .todo-list label")).get(0).getText());
+    wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".main .todo-list label")));
+    assertEquals(1, wd.findElements(By.cssSelector(".main .todo-list label")).size());
+    assertEquals(task, wd.findElements(By.cssSelector(".main .todo-list label")).get(0).getText());
     wd.quit();
   }
 
@@ -40,12 +40,12 @@ public class AddItemToList {
     WebDriver wd = new ChromeDriver();
     wd.manage().timeouts().pageLoadTimeout(5, TimeUnit.SECONDS);
     wd.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-    wd.get("https://todomvc.com/examples/angularjs/#/");
+    wd.get("https://todomvc.com/examples/angular/dist/browser/#/all");
     Arrays.asList(existingTasks).stream()
         .forEach(task -> wd.findElement(By.cssSelector("input.new-todo")).sendKeys(task, Keys.ENTER));
     wd.findElement(By.cssSelector("input.new-todo")).sendKeys(newTask, Keys.ENTER);
-    assertEquals(4, wd.findElements(By.cssSelector("section.main .todo-list label")).size());
-    assertTrue(wd.findElements(By.cssSelector("section.main .todo-list label")).stream()
+    assertEquals(4, wd.findElements(By.cssSelector(".main .todo-list label")).size());
+    assertTrue(wd.findElements(By.cssSelector(".main .todo-list label")).stream()
         .anyMatch(we -> we.getText().equals(newTask)));
     wd.quit();
   }
